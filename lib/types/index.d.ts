@@ -1,0 +1,16 @@
+import type { Context } from '@deepseek-ai/cordis';
+import type { IncomingMessage, ServerResponse } from 'node:http';
+import { Config, type VoiceConfig } from './config.js';
+import { lookupNativeAsr } from './native-asr.js';
+import { Tunnel } from './tunnel.js';
+import { type VoicePromptSessions } from './prompt-session.js';
+export { Config };
+export declare const name = "breeze-voice";
+export declare const inject: string[];
+export declare const API = "/api/breeze-voice";
+export declare function readBody(req: IncomingMessage, limit: number): Promise<Buffer<ArrayBuffer>>;
+export declare function validOrigin(req: IncomingMessage): boolean;
+export declare function createHandler(current: () => VoiceConfig, tunnel: Tunnel, route: string, sessions?: Pick<VoicePromptSessions, 'handle'>, nativeSource?: Parameters<typeof lookupNativeAsr>[0]): (req: IncomingMessage, res: ServerResponse) => Promise<void>;
+export declare const VAD_ASSETS: Record<string, string>;
+export declare function assetHandler(filename: string): (req: IncomingMessage, res: ServerResponse) => Promise<void>;
+export declare function apply(ctx: Context, config?: VoiceConfig): void;

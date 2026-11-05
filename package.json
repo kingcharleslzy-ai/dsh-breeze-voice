@@ -1,0 +1,95 @@
+{
+  "name": "dsh-breeze-voice",
+  "version": "0.4.1",
+  "description": "Breeze TTS 2 voice conversations in the current DeepSeek Harness chat",
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./client": {
+      "types": "./lib/types/client/index.d.ts",
+      "default": "./lib/client.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib/index.js",
+    "lib/client.js",
+    "lib/types/**/*.d.ts",
+    "cordis.patch.yml",
+    "README.md",
+    "LICENSE",
+    "docs/*.md",
+    "backend/*.py",
+    "backend/*.txt",
+    "backend/*.ps1",
+    "backend/*.md",
+    "assets/vad/*",
+    "skills/**/*.md"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "inject": [
+        "@deepseek-ai/dsh-client-connection",
+        "@deepseek-ai/dsh-api-remotes",
+        "@deepseek-ai/dsh-api-session-controller",
+        "@deepseek-ai/dsh-client-ui-conversation",
+        "@deepseek-ai/dsh-client-ui-settings",
+        "@deepseek-ai/dsh-client-ui-settings-plugins",
+        "@deepseek-ai/dsh-client-ui-layout",
+        "@deepseek-ai/dsh-client-ui-sidebar"
+      ],
+      "platform": "web"
+    }
+  },
+  "engines": {
+    "node": "^22.19.0 || >=24.0.0",
+    "dsh": ">=0.2.1-rc.5 <0.2.2-0 || 0.2.2-rc.1"
+  },
+  "license": "Apache-2.0",
+  "peerDependencies": {
+    "@deepseek-ai/cordis": ">=4 <5",
+    "@deepseek-ai/dsh-tools": ">=0.2.1-rc.5 <0.2.2-0 || 0.2.2-rc.1",
+    "@deepseek-ai/schemastery": ">=3.18.4 <4",
+    "react": ">=18.2 <19",
+    "react-dom": ">=18.2 <19"
+  },
+  "peerDependenciesMeta": {
+    "@deepseek-ai/cordis": {
+      "optional": true
+    },
+    "@deepseek-ai/schemastery": {
+      "optional": true
+    },
+    "react": {
+      "optional": true
+    },
+    "react-dom": {
+      "optional": true
+    },
+    "@deepseek-ai/dsh-tools": {
+      "optional": true
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kingcharleslzy-ai/dsh-breeze-voice.git"
+  },
+  "homepage": "https://github.com/kingcharleslzy-ai/dsh-breeze-voice",
+  "keywords": [
+    "deepseek-harness",
+    "dsh-plugin",
+    "voice-chat",
+    "speech-to-text",
+    "text-to-speech",
+    "breeze-tts",
+    "vad"
+  ]
+}
