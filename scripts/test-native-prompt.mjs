@@ -1,0 +1,17 @@
+import assert from 'node:assert/strict';
+import {pathToFileURL} from 'node:url';
+const runtime=process.env.DSH_RUNTIME??'/Applications/DeepSeek Harness.app/Contents/Resources/app/dsh/node_modules/@deepseek-ai';
+const {Context}=await import(pathToFileURL(`${runtime}/cordis/lib/index.js`));
+const {SystemPrompt,renderPrompt}=await import(pathToFileURL(`${runtime}/dsh-system-prompt/lib/index.js`));
+const {installVoicePromptSessions}=await import('../lib/types/prompt-session.js');
+const ctx=new Context();const prompt=new SystemPrompt(ctx,{personaPrefix:'HOST BASE'});
+const manager=installVoicePromptSessions(ctx,()=>({voicePrompt:'Speak naturally. Keep {{literal}} unchanged.',personaEnabled:true,personaName:'Voice Partner',personaPrompt:'Be concise.'}));
+const a={agent:{session:{header:{id:'acceptance-A'}}}},b={agent:{session:{header:{id:'acceptance-B'}}}};
+const render=async context=>renderPrompt(await prompt.assemble(context));
+assert(!(await render(a)).includes('Be concise.'));
+const lease=manager.handle({action:'start',sessionId:'acceptance-A'});
+const active=await render(a);assert(active.includes('{{literal}}'));assert(active.includes('Be concise.'));assert(active.includes('HOST BASE'));
+assert(!(await render(b)).includes('Be concise.'));
+manager.handle({action:'stop',sessionId:'acceptance-A',leaseId:lease.leaseId});assert(!(await render(a)).includes('Be concise.'));
+console.log(JSON.stringify({nativeRuntime:runtime,scoped:true,literalInterpolationDisabled:true,otherSessionUnchanged:true,stopRevokes:true,hostPromptPreserved:true}));
+manager.dispose();

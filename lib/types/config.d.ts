@@ -1,0 +1,137 @@
+import z from '@deepseek-ai/schemastery';
+export interface VoiceProfile {
+    id: string;
+    name: string;
+    instruction: string;
+}
+export interface VoiceConfig {
+    sshHost?: string;
+    remotePort?: number;
+    localPort?: number;
+    apiKey?: string;
+    remoteTaskName?: string;
+    instruction?: string;
+    voiceId?: string;
+    asrHotwords?: string;
+    asrEngine?: 'server' | 'dsh';
+    reviewBeforeSend?: boolean;
+    silenceMs?: number;
+    vadThreshold?: number;
+    bargeIn?: boolean;
+    idleMinutes?: number;
+    activeVoiceId?: string;
+    voiceProfiles?: VoiceProfile[];
+    voicePromptEnabled?: boolean;
+    voicePrompt?: string;
+    personaEnabled?: boolean;
+    personaName?: string;
+    personaPrompt?: string;
+}
+export declare const defaults: {
+    sshHost: string;
+    remotePort: number;
+    localPort: number;
+    apiKey: string;
+    remoteTaskName: string;
+    instruction: string;
+    voiceId: string;
+    asrHotwords: string;
+    asrEngine: "server" | "dsh";
+    reviewBeforeSend: boolean;
+    silenceMs: number;
+    vadThreshold: number;
+    bargeIn: boolean;
+    idleMinutes: number;
+    activeVoiceId: string;
+    voiceProfiles: VoiceProfile[];
+    voicePromptEnabled: boolean;
+    voicePrompt: string;
+    personaEnabled: boolean;
+    personaName: string;
+    personaPrompt: string;
+};
+export declare const Config: z<Schemastery.ObjectS<NoInfer<{
+    sshHost: z<string, string, "volatile-defined">;
+    remotePort: z<number, number, "volatile-defined">;
+    localPort: z<number, number, "volatile-defined">;
+    apiKey: z<string, string, "volatile-defined">;
+    remoteTaskName: z<string, string, "volatile-defined">;
+    instruction: z<string, string, "volatile-defined">;
+    voiceId: z<string, string, "volatile-defined">;
+    asrEngine: z<"server" | "dsh", "server" | "dsh", "volatile-defined">;
+    asrHotwords: z<string, string, "volatile-defined">;
+    reviewBeforeSend: z<boolean, boolean, "volatile-defined">;
+    silenceMs: z<number, number, "volatile-defined">;
+    vadThreshold: z<number, number, "volatile-defined">;
+    bargeIn: z<boolean, boolean, "volatile-defined">;
+    idleMinutes: z<number, number, "volatile-defined">;
+    activeVoiceId: z<string, string, "volatile-defined">;
+    voiceProfiles: z<NoInfer<({
+        id?: string | null | undefined;
+        name?: string | null | undefined;
+        instruction?: string | null | undefined;
+    } & import("@deepseek-ai/cosmokit").Dict)[]>, NoInfer<Schemastery.ObjectT<NoInfer<{
+        id: z<string, string, "plain">;
+        name: z<string, string, "plain">;
+        instruction: z<string, string, "plain">;
+    }>>[]>, "volatile-defined">;
+    voicePromptEnabled: z<boolean, boolean, "volatile-defined">;
+    voicePrompt: z<string, string, "volatile-defined">;
+    personaEnabled: z<boolean, boolean, "volatile-defined">;
+    personaName: z<string, string, "volatile-defined">;
+    personaPrompt: z<string, string, "volatile-defined">;
+}>>, Schemastery.ObjectT<NoInfer<{
+    sshHost: z<string, string, "volatile-defined">;
+    remotePort: z<number, number, "volatile-defined">;
+    localPort: z<number, number, "volatile-defined">;
+    apiKey: z<string, string, "volatile-defined">;
+    remoteTaskName: z<string, string, "volatile-defined">;
+    instruction: z<string, string, "volatile-defined">;
+    voiceId: z<string, string, "volatile-defined">;
+    asrEngine: z<"server" | "dsh", "server" | "dsh", "volatile-defined">;
+    asrHotwords: z<string, string, "volatile-defined">;
+    reviewBeforeSend: z<boolean, boolean, "volatile-defined">;
+    silenceMs: z<number, number, "volatile-defined">;
+    vadThreshold: z<number, number, "volatile-defined">;
+    bargeIn: z<boolean, boolean, "volatile-defined">;
+    idleMinutes: z<number, number, "volatile-defined">;
+    activeVoiceId: z<string, string, "volatile-defined">;
+    voiceProfiles: z<NoInfer<({
+        id?: string | null | undefined;
+        name?: string | null | undefined;
+        instruction?: string | null | undefined;
+    } & import("@deepseek-ai/cosmokit").Dict)[]>, NoInfer<Schemastery.ObjectT<NoInfer<{
+        id: z<string, string, "plain">;
+        name: z<string, string, "plain">;
+        instruction: z<string, string, "plain">;
+    }>>[]>, "volatile-defined">;
+    voicePromptEnabled: z<boolean, boolean, "volatile-defined">;
+    voicePrompt: z<string, string, "volatile-defined">;
+    personaEnabled: z<boolean, boolean, "volatile-defined">;
+    personaName: z<string, string, "volatile-defined">;
+    personaPrompt: z<string, string, "volatile-defined">;
+}>>, "plain">;
+export declare function resolveConfig(raw: VoiceConfig): {
+    sshHost: string;
+    remotePort: number;
+    localPort: number;
+    apiKey: string;
+    remoteTaskName: string;
+    instruction: string;
+    voiceId: string;
+    asrHotwords: string;
+    asrEngine: "server" | "dsh";
+    reviewBeforeSend: boolean;
+    silenceMs: number;
+    vadThreshold: number;
+    bargeIn: boolean;
+    idleMinutes: number;
+    activeVoiceId: string;
+    voiceProfiles: VoiceProfile[];
+    voicePromptEnabled: boolean;
+    voicePrompt: string;
+    personaEnabled: boolean;
+    personaName: string;
+    personaPrompt: string;
+};
+export type EffectiveConfig = ReturnType<typeof resolveConfig>;

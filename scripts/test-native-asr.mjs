@@ -1,0 +1,13 @@
+import assert from 'node:assert/strict';
+import {pathToFileURL} from 'node:url';
+const runtime=process.env.DSH_RUNTIME??'/Applications/DeepSeek Harness.app/Contents/Resources/app/dsh/node_modules/@deepseek-ai';
+const {Context}=await import(pathToFileURL(`${runtime}/cordis/lib/index.js`));
+const {default:SpeechToText}=await import(pathToFileURL(`${runtime}/dsh-experimental-speech-to-text/lib/index.js`));
+const {lookupNativeAsr,recognizeNativeAsr}=await import('../lib/types/native-asr.js');
+const {wav16}=await import('../lib/types/client/audio.js');
+const ctx=new Context();const service=new SpeechToText(ctx,{defaultProvider:{get:()=> 'other'},language:{get:()=> 'auto'}});
+let seen;const unregister=service.register({info:{id:'sensevoice-local',name:'Acceptance recognizer',languages:['zh'],location:'host-local'},preparation:{snapshot:()=>({phase:'standby'}),subscribe:()=>()=>{}},async transcribe(input,signal){seen={input,signal};return{text:'原生注册表桥接成功。',audioSeconds:1,inferenceSeconds:.01};}});
+const audio=new Uint8Array(await wav16(new Float32Array(16000),16000).arrayBuffer()),abort=new AbortController();
+assert(lookupNativeAsr(ctx).ready);const result=await recognizeNativeAsr(ctx,audio,abort.signal);assert.equal(result.text,'原生注册表桥接成功。');assert.equal(seen.input.language,'zh');assert(Buffer.isBuffer(seen.input.audio));assert.equal(seen.input.audio.length,32044);
+await unregister();assert.equal(lookupNativeAsr(ctx).available,false);
+console.log(JSON.stringify({nativeRuntime:runtime,actualRegistry:true,explicitProvider:true,canonicalWav:true,zhHint:true,removalObserved:true,modelsDownloaded:false}));
